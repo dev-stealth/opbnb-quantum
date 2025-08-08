@@ -1,0 +1,4 @@
+target/
+**/*.rs.bak
+*.tar.gz
+SHA256SUMS
