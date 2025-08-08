@@ -1,0 +1,179 @@
+---
+
+title: "10\_user\_ops\_docs"
+subtitle: "Bruker- og driftsmanual for opBNB Quantum-Secure ZK Privacy Wallet"
+version: "v3.0"
+status: "authoritative"
+last\_updated: "2025-08-05"
+audience: "Slutt-brukere, DevOps, Support"
+scope:
+  - Daglig bruk (CLI + TUI)
+  - Nøkkel-sharding, sikkerhetskopi & gjenoppretting
+  - Feilsøking / vanlige problemer
+  - Drift av mirror-node & batch-aggregator
+  - Versjons- og kompatibilitets­matrise
+
+---
+
+## 1  Kom-i-gang
+
+| Trinn | Kommando                                 | Hva skjer                                                                         |
+| ----: | ---------------------------------------- | --------------------------------------------------------------------------------- |
+|     1 | `curl -fsSL https://get.qsw.dev \| bash` | Laster ned signert binær, verifiserer **cosign**-signatur.                        |
+|     2 | `qsw doctor`                             | Kjør alle OPSEC-porter; sjekker SGX/SEV/CCA-attestasjon, Mixnet/Tor, klokke ±2 s. |
+|     3 | `qsw deposit 0.10`                       | Splitter til 10 × 0,01 BNB-noter, genererer Halo2-bevis → sender `deposit()`-txn. |
+|     4 | `qsw tui` (▢)                            | Åpner TUI for status, saldo og anonymitets-sett-id.                               |
+|     5 | `qsw withdraw NOTEID --to bnb1…`         | Legges i kø; sendes ut når batch ≥ 16 / 80 dummy.                                 |
+
+*(▢ = Valgfritt – grafisk terminal-UI)*
+
+---
+
+## 2  Kommandolinje-referanse
+
+| Kategori | Kommando                                  | Flag           | Beskrivelse                         |
+| -------- | ----------------------------------------- | -------------- | ----------------------------------- |
+| System   | `qsw doctor`                              | `--json`       | Full helsesjekk (OPSEC-porter).     |
+| Konto    | `qsw rotate`                              |                | Roterer PQ-nøkkel (< 90 dager).     |
+| Pool     | `qsw deposit <BELØP>`                     | `--memo`       | Innskudd → ShieldedPool.            |
+|          | `qsw transfer <NOTEID> --to <stealth-PK>` |                | Intern overføring.                  |
+|          | `qsw withdraw <NOTEID> --to <bnb-addr>`   |                | Uttak til ekstern adresse.          |
+| Sync     | `qsw sync`                                |                | Oppdater Merkle-rot & batch-status. |
+| Backup   | `qsw backup`                              | `--shares 5/3` | QR + ultralyd Shamir-deler.         |
+| Restore  | `qsw restore`                             |                | Gjenoppretter fra QR/lyd.           |
+| TUI      | `qsw tui`                                 | `--fps 30`     | Starter UI.                         |
+
+---
+
+## 3  Nøkkel-håndtering
+
+### 3.1 Shamir-sharding
+
+* Standard: **5 deler / 3 nødvendige**.
+* Lag QR/ultralyd for hver del → skriv ut på papir **eller** lagre på ubundet USB.
+* **Del aldri** mer enn én del med samme person.
+
+### 3.2 Rotasjon
+
+* Automatisk varsel etter 80 dager.
+* Kjør `qsw rotate` (krever ≥ t signer-kvote).
+* Klient nekter nye transaksjoner hvis ≥ 90 dager gammel nøkkel.
+
+---
+
+## 4  Beretning – deposit → withdraw
+
+sequenceDiagram
+    User CLI->>ShieldedPool: deposit(commit)
+    ShieldedPool--)Mixnet/Tor: event log
+    User CLI-->>Aggregator: send note meta (encrypted)
+    Aggregator->>DecoyBatcher: queue(real+dummy)
+    DecoyBatcher->>ShieldedPool: batch withdraw()
+    ShieldedPool--)User: event(WITHDRAW)
+
+---
+
+## 5  Feilsøking (FAQ)
+
+| Symptom                       | Årsak                               | Løsning                                          |
+| ----------------------------- | ----------------------------------- | ------------------------------------------------ |
+| `⛔ NET-001 Mixnet down`       | Lokalt nett, brannmur blokkerer Tor | Sjekk 9050/9150 TCP; fall back `--fallback i2p`. |
+| `SGX_ERROR_UNEXPECTED`        | BIOS → SGX disabled                 | Aktivér **Intel SGX** → *“Flexible Launch”*.     |
+| `batch pending (12/16)` > 2 t | For få ekte deltakere               | Øk dummy-kvote: `qsw config --dummy 120`.        |
+| `Illegal instruction` på ARM  | Mangler NEON                        | Bygg med `nix build .#cli-armv7`.                |
+| UI fryser                     | GPU-driver konflikt                 | Start med `qsw tui --fps 20 --nogpu`.            |
+
+---
+
+## 6  Drift – mirror-node & aggregator
+
+1. **Docker Compose**
+
+git clone https://github.com/org/opbnb-qs-privacy-wallet.git
+cd opbnb-qs-privacy-wallet/test-harness
+docker compose up -d mirror aggregator
+
+2. **Metrics**
+
+| Endpoint     | Port         | Format                 |
+| ------------ | ------------ | ---------------------- |
+| Prometheus   | 9090/metrics | OpenMetrics            |
+| Grafana Dash | 3000         | login: grafana/grafana |
+
+3. **Varsler**
+   Alertmanager sender Matrix-webhook ved:
+
+   * batch-latency > 10 min
+   * anonymity-set < 128
+   * Tor relay failure > 3 ×.
+
+---
+
+## 7  Versjons- og kompat-matrise
+
+| Komponent        | Minimum |  Anbefalt |     EOL |
+| ---------------- | ------: | --------: | ------: |
+| CLI `qsw`        |   0.9.0 | **1.0.0** | Q4 2026 |
+| opBNB Bedrock    |   1.2.0 | **1.4.0** |     TBD |
+| Intel SGX-driver |    2.23 |  **2.23** | Q2 2027 |
+| NVIDIA CUDA      |    12.4 |  **12.5** | Q1 2026 |
+| Rust toolchain   |    1.77 |  **1.79** | +12 mnd |
+| Foundry          |    v1.8 | **v1.10** | rolling |
+
+*(Oppdateres kvartalsvis.)*
+
+---
+
+## 8  Nød-prosedyre (Loss / Compromise)
+
+| Scenario                   | Handling                                                                                            |
+| -------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Mistede Shamir-deler**   | Skaff ≥ t resterende, kjør `qsw restore`. Generér **ny** nøkkel-sett, overfør saldo til ny adresse. |
+| **Enhet stjålet**          | Priv-nøkkel finnes kun i RAM. Roter gruppe-PK via quorum; informer Paymaster.                       |
+| **Anonymitets-sett < 128** | Vent, eller bruk `shielded transfer` til større pool.                                               |
+| **Komplett data-korrupt**  | Installer fresh Ubuntu 22.04 → gjenopprett via backup-QR.                                           |
+
+---
+
+## 9  Bug-bounty & sikkerhets­kontakt
+
+* **Bounty-portal:** `https://secure.qsw.dev` – åpner H+14 d etter audit sign-off.
+* **E-mail (PGP):** `security@qs-wallet.io` – PGP-fingerprint publiseres på web & KeyBase.
+* Nøkkel-rotasjon-events meldes på RSS feed `https://status.qsw.dev/pgp.xml`.
+
+---
+
+## 10  Endringslogg (utdrag)
+
+|   Versjon | Dato       | Viktig                                          |
+| --------: | ---------- | ----------------------------------------------- |
+|     1.0.0 | 2025-08-05 | Første stable release; STARK batch; GPU-prover. |
+| 0.9.0-rc1 | 2025-07-15 | Audit-RC; SLSA provenance; cosign-signatur.     |
+|     0.8.3 | 2025-06-20 | PQ-KI threshold integrert; air-gap restore.     |
+
+Se `CHANGELOG.md` for full teknisk logg.
+
+---
+
+## 11  Kontakt & fellesskap
+
+| Kanal     | URL                               | Formål                      |
+| --------- | --------------------------------- | --------------------------- |
+| Matrix    | `#qs-wallet:matrix.org`           | Brukerstøtte, diskusjon     |
+| GitHub    | Issues / Discussions              | Feilrapport, feature-ønsker |
+| X/Twitter | `@QS_Wallet`                      | Kunngjøringer               |
+| RSS       | `https://status.qsw.dev/feed.xml` | Drift-status                |
+
+---
+
+## 12  “✅ Done when” (bruker-sjekkliste)
+
+* [ ] `qsw doctor` viser **alle grønne** porter.
+* [ ] Backup-QR skannet og validert på offline-enhet.
+* [ ] Deposit → withdraw-test gjort på **testnet**.
+* [ ] Merket kalender for nøkkel-rotasjon om 90 dager.
+
+---
+
+**Info**
+Walleten er *ikke forvaringspliktig*; du er selv ansvarlig for sikkerhetskopi og OPSEC. Ingen sentral enhet kan gjenopprette tapte nøkkel-deler eller reversere transaksjoner.

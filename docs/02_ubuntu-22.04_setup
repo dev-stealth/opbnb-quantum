@@ -1,0 +1,130 @@
+title: "02_ubuntu-22.04_setup"
+version: "v3.0"
+status: "authoritative"
+last\_updated: "2025-08-05"
+audience: "DevOps / Core-devs"
+base\_os: "Ubuntu 22.04 LTS (Jammy) – clean install, minimal"
+pinned\_versions
+docker:    25.0.x
+rust:      1.79.0-stable
+go:        1.23.x
+node:      22.18.0-LTS
+foundry:   nightly-f5932a6 (2025-08-04)
+python:    3.12.x
+liboqs:    0.14.0-rc1
+requirements
+network:  ≥ 50 Mbps; outbound https allowed (Tor bridges optional)
+disk:     ≈ 45 GB free
+cpu:      x86\_64-AVX2 *eller* aarch64-NEON
+privileges: sudo
+contributors
+@infra-sec, @core-arch
+
+---
+
+## 0  TL;DR
+
+`curl -fsSL https://get.qsw.dev/bootstrap | bash`
+Scripten kjører ALLE stegene under, men dokumentet forklarer manuell installasjon for feilsøking.
+
+---
+
+## 1  Pre-flight-sjekk
+
+* Verifiser 22.04 (`lsb_release -a`), minst 16 GB RAM og 4 CPU-kjerner.
+
+---
+
+## 2  System­oppgradering & grunnpakker
+
+`sudo apt update && sudo apt -y full-upgrade`
+Installer `build-essential clang lld llvm ninja-build cmake pkg-config …`.
+
+---
+
+## 3  TEE-/Kernel-støtte
+
+### 3.1  Intel SGX
+
+Legg til Intel-repo, installer `libsgx-*` pakker + driver v2.23 (20 mai 2025).
+Bekreft: `dmesg | grep -i sgx`.
+
+### 3.2  AMD SEV-SNP
+
+Installer `sevctl`; bekreft `sevctl status`.
+
+### 3.3  Arm CCA
+
+`modprobe cca`, sjekk `dmesg`.
+
+---
+
+## 4  (valgfritt) GPU for Halo2-prover
+
+NVIDIA driver ≥ 555 (CUDA 12.5) eller ROCm 6.0.
+
+---
+
+## 5  Container + Nix
+
+### 5.1  Docker 25
+
+Legg til Docker-repo, installer `docker-ce 25.0.*`, legg bruker i `docker`-gruppe.
+
+### 5.2  Nix + flakes
+
+`curl -L https://nixos.org/nix/install | sh -- --daemon --yes`
+Aktiver `nix-command flakes`.
+
+---
+
+## 6  Språk-toolchains
+
+* **Rust 1.79** – `rustup ... --default-toolchain 1.79.0`, legg til clippy/rustfmt.
+* **Go 1.23** – last ned tar-ball, legg til `/usr/local/go/bin` i PATH.
+* **Node 22 LTS** via NVM – `nvm install 22.18.0`.
+* **Python 3.12** via pyenv + Poetry 1.8.2.
+* **Foundry nightly f5932a6** – `foundryup --nightly`.
+
+---
+
+## 7  liboqs + PQ-bindings
+
+`git clone … liboqs 0.14.0-rc1` → `cmake -GNinja` med Kyber+Dilithium, `sudo ninja install`.
+
+---
+
+## 8  CI-identiske bygg
+
+* `timedatectl set-ntp true`
+* `git config --global --add safe.directory "$(pwd)"`
+* Legg `max_parallel_builds = 1` i `/etc/nix/nix.conf`.
+
+---
+
+## 9  Valideringsskript (legg i `scripts/dev/validate-env.sh`)
+
+Sjekker at kommandoene `docker nix rustc go node poetry forge sgx-lkl-helloworld` finnes, riktige versjoner og SGX-device.
+
+---
+
+## 10  Vanlige feil
+
+| Symptom                              | Årsak                 | Fix                                        |
+| ------------------------------------ | --------------------- | ------------------------------------------ |
+| Illegal instruction                  | CPU uten AVX2         | `RUSTFLAGS='-C target-feature=-avx2'`      |
+| SGX\_ERROR\_UNEXPECTED               | SGX deaktivert i BIOS | Aktiver SGX → “Enabled w/ Flexible Launch” |
+| cannot allocate memory in static TLS | `ulimit -s` lav       | `ulimit -s 8192`                           |
+| nix: … failed to connect daemon      | docker-snap konflikt  | Fjern snap-versjon, installer deb-pakke    |
+
+---
+
+## 11  Videre
+
+Når denne fila er ✓:
+
+1. bygg Kyber/Dilithium (03\_pq-crypto\_stack.md)
+2. kompilér Halo2-circuits (04\_zk-circuits\_halo2\_stark.md)
+3. utvikle kontrakter (05\_smart\_contracts.md)
+
+Kjør alltid `make doctor` før PR.

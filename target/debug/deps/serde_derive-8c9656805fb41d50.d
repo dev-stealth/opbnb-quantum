@@ -1,0 +1,22 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/serde_derive-8c9656805fb41d50.d: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/ast.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/attr.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/name.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/case.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/check.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/ctxt.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/receiver.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/respan.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/symbol.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/bound.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/fragment.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/de.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/dummy.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/pretend.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/ser.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/this.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/libserde_derive-8c9656805fb41d50.so: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/ast.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/attr.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/name.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/case.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/check.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/ctxt.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/receiver.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/respan.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/symbol.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/bound.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/fragment.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/de.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/dummy.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/pretend.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/ser.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/this.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/lib.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/ast.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/attr.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/name.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/case.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/check.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/ctxt.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/receiver.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/respan.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/internals/symbol.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/bound.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/fragment.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/de.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/dummy.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/pretend.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/ser.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/serde_derive/src/this.rs:

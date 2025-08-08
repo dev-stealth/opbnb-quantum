@@ -1,0 +1,17 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/crossbeam_utils-85e16a584194ee21.d: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/seq_lock.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/atomic_cell.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/consume.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/cache_padded.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/backoff.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/once_lock.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/parker.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/sharded_lock.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/wait_group.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/thread.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/libcrossbeam_utils-85e16a584194ee21.rmeta: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/seq_lock.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/atomic_cell.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/consume.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/cache_padded.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/backoff.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/once_lock.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/parker.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/sharded_lock.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/wait_group.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/thread.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/lib.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/seq_lock.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/atomic_cell.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/atomic/consume.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/cache_padded.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/backoff.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/once_lock.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/parker.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/sharded_lock.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/sync/wait_group.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/crossbeam-utils/src/thread.rs:

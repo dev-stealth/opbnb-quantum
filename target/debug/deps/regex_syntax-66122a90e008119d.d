@@ -1,0 +1,23 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/regex_syntax-66122a90e008119d.d: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/parse.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/print.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/visitor.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/debug.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/either.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/error.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/interval.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/literal.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/print.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/translate.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/visitor.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/parser.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/rank.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/unicode.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/unicode_tables/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/utf8.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/libregex_syntax-66122a90e008119d.rmeta: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/parse.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/print.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/visitor.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/debug.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/either.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/error.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/interval.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/literal.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/print.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/translate.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/visitor.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/parser.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/rank.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/unicode.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/unicode_tables/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/utf8.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/lib.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/parse.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/print.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/ast/visitor.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/debug.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/either.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/error.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/interval.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/literal.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/print.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/translate.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/hir/visitor.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/parser.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/rank.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/unicode.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/unicode_tables/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/regex-syntax/src/utf8.rs:

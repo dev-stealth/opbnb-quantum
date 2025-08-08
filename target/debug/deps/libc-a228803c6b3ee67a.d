@@ -1,0 +1,16 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/libc-a228803c6b3ee67a.d: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/macros.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/primitives.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/arch/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/x86_64/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/x86_64/not_x32.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/arch/generic/mod.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/liblibc-a228803c6b3ee67a.rmeta: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/macros.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/primitives.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/arch/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/x86_64/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/x86_64/not_x32.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/arch/generic/mod.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/lib.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/macros.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/primitives.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/arch/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/x86_64/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/gnu/b64/x86_64/not_x32.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/libc/src/unix/linux_like/linux/arch/generic/mod.rs:

@@ -1,0 +1,180 @@
+---
+
+title: "03\_pq-crypto\_stack"
+version: "v3.0"
+status: "authoritative"
+last\_updated: "2025-08-05"
+audience: "Crypto / ZK / Client-devs"
+scope:
+
+* Post-Quantum Key Infrastructure (PQ-KI)
+* Threshold ML-DSA (Dilithium-5) signering (t = 3 / n ≥ 5)
+* Stealth- & z-adresse-DH med ML-KEM-1024
+* Hybrid PQ-HDR (forward secrecy) + HKDF nøkkelskjema
+* Rust-bindings & FFI for SGX / SEV / CCA enclaves
+  pinned\_versions:
+  liboqs\_c: 0.14.0-rc1
+  oqs\_rust: 0.11.0
+  mlkem\_crate: ml-kem 0.8
+  mldsa\_crate: ml-dsa 1.1
+  frost\_core: frost-core 2.1.0
+
+---
+
+## 0  Mål
+
+*Levere en komplett, reproduserbar PQ-stack som driver:*
+
+1. **Engangs-stealth-adresser** via ML-KEM-1024 (Kyber-FIPS-variant)
+2. **Threshold-signatur** (t = 3 / n ≥ 5) med ML-DSA-Dilithium-5
+3. **HKDF-basert nøkkelrotasjon** ≤ 90 dager (enforced i CLI)
+4. **Rust-API** som kobles inn i
+   – Halo2-circuit (`circuits/halo2/sig_proof.rs`)
+   – Enclave-laget (`client/enclave/*`)
+   – Smart-kontrakt-verifier (`VerifierHalo2.sol`)
+
+---
+
+## 1  Mappe-/fil-tre – `pq/`
+
+pq/
+├─ Cargo.toml
+├─ benches/
+│  └─ pq_benches.rs
+├─ src/
+│  ├─ lib.rs
+│  ├─ kyber.rs
+│  ├─ dilithium.rs
+│  ├─ threshold_dsa.rs
+│  ├─ hkdf.rs
+│  └─ stealth_addr.rs
+└─ tests/
+   ├─ vectors_dilithium.rs
+   ├─ vectors_kyber.rs
+   └─ threshold_flow.rs
+
+Alle filer er stubs med `// TODO` ved init.
+
+---
+
+## 2  Bygge-/laste ned avhengigheter
+
+Forutsetter steg **02\_ubuntu-22.04\_setup.md**. liboqs er installert system-vidt; ABI-match sikres via `.cargo/config.toml`.
+
+[target.'cfg(all(not(target_env = "sgx"), not(target_env = "musl")))']
+rustflags = ["-Ctarget-cpu=native"]
+
+[env]
+LIBOQS_INSTALL_DIR = "/usr/local"
+
+---
+
+## 3  `Cargo.toml` (utdrag)
+
+[package]
+name         = "pq"
+version      = "0.1.0"
+edition      = "2021"
+links        = "oqs"
+
+[features]
+default      = ["kyber1024", "dilithium5", "threshold"]
+kyber1024    = ["oqs/kyber"]
+dilithium5   = ["oqs/dilithium"]
+threshold    = ["dep:frost-core"]
+
+[dependencies]
+oqs          = { version = "0.11", default-features = false,
+                 features = ["ml_kem", "ml_dsa"] }
+ml-kem       = { version = "0.8", optional = true }
+ml-dsa       = { version = "1.1", optional = true }
+sha3         = "0.10"
+hkdf         = "0.12"
+zeroize      = "1"
+rand_core    = "0.6"
+frost-core   = { version = "2.1", optional = true }
+serde        = { version = "1.0", features = ["derive"] }
+
+[dev-dependencies]
+criterion    = { version = "0.5", features = ["html_reports"] }
+anyhow       = "1"
+hex          = "0.4"
+
+
+## 4  Threshold Dilithium (t = 3 / n = 5)
+
+| Felt      | Valg                          | Grunn                                           |
+| --------- | ----------------------------- | ----------------------------------------------- |
+| Protokoll | **FROST-Dilithium (2-round)** | Reduserer nettverkstrinn, linkability-resistant |
+| Felt-hash | SHA3-512                      | Samme primitive som ML-DSA                      |
+| Dealer    | **Distributed Keygen (DKG)**  | Ingen single-point-of-failure                   |
+
+`threshold_dsa.rs` gir API: `dkg_start`, `sign`, `verify` (skjelett vist tidligere).
+
+---
+
+## 5  Kyber-DH for stealth-adresser
+
+`stealth_addr.rs` gir `gen_stealth()` som returnerer `(stealth_pk, shared_secret)` basert på `ml-kem::encapsulate()`.
+
+---
+
+## 6  HKDF & hybrid PQ-HDR
+
+1. ML-KEM-1024 → `ss₀`
+2. ECDH P-256 (legacy fallback) → `ss₁`
+3. `HKDF-SHA3-512(label="PQ-HDR", salt=nonce)`
+4. Sesjonsnøkkel = første 32 bytes av OKM
+
+---
+
+## 7  Test- & bench-suite
+
+cargo test -p pq
+cargo bench -p pq -- --save-baseline pq_v1
+
+SLO-mål:
+
+* Kyber1024 encaps ≤ 180 µs (AVX2) / ≤ 350 µs (NEON)
+* Dilithium-5 sign ≤ 1.9 ms, verify ≤ 3 ms
+* Threshold-sign (t = 3) ≤ 8 ms
+
+---
+
+## 8  CLI-integrasjon
+
+`client/cli/ops/deposit.rs` kaller `gen_stealth`, `withdraw.rs` kaller `threshold_dsa::sign`.
+
+Nøkkelrotasjon håndheves: klient nekter om `last_rotated > 90 d`.
+
+---
+
+## 9  Formelle bevis-koblinger
+
+* `hkdf.rs` → Isabelle-lemma *HKDF-PRF*
+* `threshold_dsa.rs` → Coq-lemma *FROST-Dilithium unforgeable*
+
+---
+
+## 10  Sikkerhets­anmerkninger
+
+* liboqs 0.14 mitigasjoner mot secret-dependent branching
+* Rerandomised FROST-variant for Paymaster-signering
+* KEM replay hindres via 96-bit nonce i `encapsulated`
+
+---
+
+## 11  “✅ Done when”-sjekkliste
+
+* `cargo test -p pq` grønt på x86 & ARM
+* Benchmarks innen SLO
+* CLI kan signere & verifisere offline
+* Halo2-circuit `sig_proof` passerer integrasjonstest
+* `cargo auditable` → 0 kritiske CVE
+* Bench-HTML lastet som CI-artefakt
+
+---
+
+## 12  Neste steg
+
+Gå til **04\_zk-circuits\_halo2\_stark.md** for å koble `threshold_dsa::verify` inn i Halo2-gadgeten og forberede GPU-proverparametere.

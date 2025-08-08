@@ -1,0 +1,9 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/opbnb_quantum-75f800e479ebd6f1.d: src/main.rs Cargo.toml
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/debug/deps/libopbnb_quantum-75f800e479ebd6f1.rmeta: src/main.rs Cargo.toml
+
+src/main.rs:
+Cargo.toml:
+
+# env-dep:CLIPPY_ARGS=-D__CLIPPY_HACKERY__warnings__CLIPPY_HACKERY__
+# env-dep:CLIPPY_CONF_DIR

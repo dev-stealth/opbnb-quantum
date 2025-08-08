@@ -1,0 +1,14 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/release/deps/getrandom-719df5577e18e497.d: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error_impls.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util_libc.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/use_file.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lazy.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/linux_android_with_fallback.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/release/deps/libgetrandom-719df5577e18e497.rlib: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error_impls.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util_libc.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/use_file.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lazy.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/linux_android_with_fallback.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/release/deps/libgetrandom-719df5577e18e497.rmeta: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error_impls.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util_libc.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/use_file.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lazy.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/linux_android_with_fallback.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lib.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/error_impls.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/util_libc.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/use_file.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/lazy.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/getrandom-0.2.16/src/linux_android_with_fallback.rs:

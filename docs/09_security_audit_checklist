@@ -1,0 +1,188 @@
+---
+
+title: "09\_security\_audit\_checklist"
+version: "v3.0"
+status: "authoritative"
+last\_updated: "2025-08-05"
+audience: "Security-Leads / External Auditors / Bug-Bounty Hunters"
+scope:
+
+* Forberedelse, gjennomføring og oppfølging av **uavhengig sikkerhets- og anonymitets-audit**
+* Dekker full stack: PQ-KI, ZK-circuits, kontrakter, klient, infrastruktur, OPSEC-policy
+* Overholder **OWASP ASVS v5.0 L3** og kartlegger mot **CWE Top 25 (2025)**
+  standards\_refs:
+* FIPS 204 (ML-DSA)
+* OWASP ASVS 5.0
+* MITRE CWE Top 25 2025
+
+---
+
+## 0 Målsetning
+
+1. **Eliminere** alle høye / kritiske sårbarheter før mainnet-lansering.
+2. **Bevise** kryptografisk korrekthet og anonymitetsgarantier (Spec §4).
+3. **Publisere** full audit-rapport + diff-patch + SLSA-provenans.
+
+---
+
+## 1 Roller & kontaktpunkter
+
+| Rolle                   | Ansvar                           | Kontakt      |
+| ----------------------- | -------------------------------- | ------------ |
+| **Audit-Lead (intern)** | Koordinere, samle artefakter     | `@infra-sec` |
+| **Core-Dev Rep**        | Teknisk dypdykk, quick-fix PR    | `@core-arch` |
+| **ZK-Lead**             | Circuit-spørsmål & trusted setup | `@zk-lead`   |
+| **Auditor Team A**      | Kontrakter & L2-økosystem        | TBD (RFP)    |
+| **Auditor Team B**      | PQ-KI & Enclave                  | TBD          |
+| **Bounty Manager**      | Program & utbetalinger           | `@sec-ops`   |
+
+---
+
+## 2 Tidslinje (anbefalt)
+
+|      Dag | Milepæl                                                  |
+| -------: | -------------------------------------------------------- |
+|      −30 | Kode-frys (`release/rc1` tag)                            |
+|      −28 | Upload artefakter & CI-bevis, generér SLSA-provenance    |
+|      −21 | Kick-off-call m/ audit-team; gjennomgang av threat-model |
+| −14 → −1 | Audit sprint 1 og 2 (to ukers sykluser)                  |
+|        0 | Foreløpig rapport, “fix-window” starter                  |
+|       +7 | Patch-PR merge, regression-test → CI grønt               |
+|      +10 | Re-audit diff; sign-off                                  |
+|      +12 | Endelig rapport + Executive summary publiseres           |
+|      +14 | Bug-bounty går live (90 dager)                           |
+
+---
+
+## 3 Artefakter som **må** leveres til auditor
+
+| Kategori                        | Fil / plassering                                     |
+| ------------------------------- | ---------------------------------------------------- |
+| **Spesifikasjon**               | `docs/01_project-overview.md` + 02–06                |
+| **Kildekode**                   | Tag `release/rc1` – hele repo                        |
+| **SBOM**                        | `qsw.spdx.json`, `contracts.sbom.json`               |
+| **SLSA provenance**             | `slsa-provenance.intoto.jsonl`                       |
+| **Deknings-rapporter**          | `coverage/lcov.info`, `tarpaulin.html`               |
+| **Statisk analyse**             | Slither HTML, `cargo audit` CSV                      |
+| **ZK-proof artefakter**         | Halo2 vk, sample proofs, STARK AIR                   |
+| **Threat-model & attack-trees** | Denne filen §8                                       |
+| **Deployment manifests**        | `script/Deploy.s.sol` + Anvil diff                   |
+| **TEE quotes**                  | SGX / SEV / CCA attest JSON                          |
+| **OPSEC-policy**                | `configs/opsec/policy.rego` + `client/ops/health.rs` |
+
+Artefakter samles i én kryptert ZIP (`gpg --s2k-mode=3 --cipher-algo AES256`).
+
+---
+
+## 4 Pre-audit “gate-zero”
+
+| Sjekk                     | Verktøy / Kommando          | Status |
+| ------------------------- | --------------------------- | ------ |
+| CI pipelines grønne       | GitHub Actions dashboard    | ☐      |
+| Coverage ≥ 85 %           | `tarpaulin --fail-under 85` | ☐      |
+| Slither 0 kritiske        | `slither .`                 | ☐      |
+| Mythril high-sev = 0      | `myth analyze`              | ☐      |
+| Kani proofs pass          | `make kani`                 | ☐      |
+| Coq & Isabelle pass       | `make coq isa`              | ☐      |
+| Regression e2e scenarioer | `make e2e`                  | ☐      |
+| OPSEC negative-tests      | `cargo test --ignored`      | ☐      |
+| Gas snapshot ≤ mål        | `forge snapshot`            | ☐      |
+
+---
+
+## 5 Audit-fokus-områder
+
+| Lag                  | Kritiske krav                                          | Tester / Bevis                      |
+| -------------------- | ------------------------------------------------------ | ----------------------------------- |
+| **Smart-kontrakter** | Reentrancy, storage-kollisjon, overflow, DoS via batch | Foundry invariant, Echidna, Slither |
+| **ZK-circuits**      | Soundness, ingen PK-lekkasje, range-proof korrekthet   | Coq lemma, GPU vs CPU-likhetstest   |
+| **PQ-KI**            | Signatur uforgjengelig, threshold DSA liveness         | Kani + FROST-theorem                |
+| **Network & Mixnet** | Traffic correlation < 10⁻⁶                             | Integration-scenario “heavy\_decoy” |
+| **Enclave**          | Key aldri på disk, quote-validity                      | Attest verify-script                |
+| **OPSEC**            | Alle gates nekter ved brudd                            | `client/tests/opsec_block.rs`       |
+| **CI/CD**            | Reproduserbar build + supply-chain                     | SLSA L3-logs                        |
+
+---
+
+## 6 Risiko-matrise (CWE Top 25 mapping)
+
+| CWE                       | Risikonivå | Mitigasjon                         |
+| ------------------------- | ---------- | ---------------------------------- |
+| 787 – Out-of-bounds Write | Høy        | Rust memory-safety; `kani` harness |
+| 798 – Hard-coded Secrets  | Kritisk    | Zero-disk policy; OPA check        |
+| 416 – Use After Free      | Medium     | Rust; `miri` optional run          |
+| 400 – Resource Exhaustion | Medium     | Gas-limit, dummy budget cap        |
+| 352 – CSRF (API)          | Lav        | Ingen web-API (CLI only)           |
+
+---
+
+## 7 Bug Bounty-program (post-audit)
+
+* **Varighet:** 90 dager fra “mainnet-day + 7”.
+* **Pool:** 10 % av TVL (max 5 M USD) – escrow i `ShieldedPool` governance.
+* **Utbetaling:** Skjer automatisk via ZK-bevis (dummy-TX) for kritisk funn.
+* **Regler:**
+
+  * Responsible disclosure via e-mail `security@qs-wallet.io`.
+  * On-chain exploit **forbudt**; bruk fork / shadow-fork.
+  * Kvalifikasjon = PoC + remedieringsforslag.
+
+---
+
+## 8 Threat-model & attack-trees (kort)
+
+graph TD
+  User -->|deposit| ShieldedPool
+  Attacker((Global adversary))
+  Attacker -->|Net sniff| Mixnet
+  Attacker -->|Timing| DecoyBatcher
+  Attacker -->|TEE exploit| Enclave
+  Attacker -->|Gas fingerprint| Paymaster
+  Attacker -->|Statistical deanonym| Aggregator
+
+Detaljert diagram `docs/assets/attack_trees.drawio`.
+
+---
+
+## 9 Post-audit “exit criteria”
+
+| Kriterium                               | Tilstand |
+| --------------------------------------- | -------- |
+| Alle High/Critical → fixed & re-audited | ☐        |
+| Auditor sign-off PDF signert med PGP    | ☐        |
+| Patch-versjon på testnet & mainnet      | ☐        |
+| Release notes + CVE-ID publisert        | ☐        |
+| Bug-bounty-portal åpnet                 | ☐        |
+
+---
+
+## 10 Kommunikasjons-plan
+
+* **Privat:** Matrix-room `#qs-audit:int`, E2E kryptert.
+* **Offentlig:** GitHub Advisories + X/Twitter kunngjøring.
+* **Embargo:** 14 dager for medium, 0 dager for kritisk on-chain-bugg.
+
+---
+
+## 11 Vedlegg
+
+A. OWASP ASVS 5.0 krav-mapping
+B. Coq & Isabelle proof-hash manifest
+C. CI artefakt-SHA manifest (`artefacts.sha256`)
+D. Audit ToR-utkast
+
+---
+
+## 12 Intern “✅ Done when”-sjekkliste
+
+* [ ] Gate-zero (§4) fullført (`make audit-pre`).
+* [ ] Artefakt-ZIP sendt & kvittert.
+* [ ] Audit-kanal etablert & nøkler byttet.
+* [ ] Timeline bekreftet i kontrakt (SOW).
+* [ ] NDA & API-rate-limit un-blocked for auditor-IP.
+
+---
+
+### Neste steg
+
+Etter ekstern sign-off → oppdater bruker-FAQ i `10_user_ops_docs.md` med audit-resultater og ny versjon.

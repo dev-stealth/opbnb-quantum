@@ -1,0 +1,237 @@
+title: "06_cli_client"
+version: "v3.0"
+status: "authoritative"
+last\_updated: "2025-08-05"
+audience: "Rust devs / SecOps / End-user doc writers"
+scope:
+
+* Command-line & TUI wallet for *opBNB Quantum-Secure ZK Privacy Wallet*
+* Rust 2021 + SGX/SEV/CCA enclave-shims
+* Alltid-på nettverks­anonymitet (Mixnet + Tor/I2P/HORNET fallback)
+* Full OPSEC-gate-håndheving
+* Air-gap backup & offline signering (QR + ultralyd)
+  pinned\_versions:
+  rust:              1.79.0
+  tokio:             1.40
+  ratatui:           0.26
+  quinn (QUIC):      0.11
+  sphinx-mixnet:     0.9
+  tor-process:       0.19
+  wireguard-noise:   0.7
+  sgx-urts-sys:      2.23
+  sevsnp-sys:        1.4
+  arm-cca-ffi:       0.3
+  qrcode-rust:       0.15
+  ultrasonic-codec:  0.6
+  zeroize:           1
+
+---
+
+## 0  Mål
+
+CLI/TUI-binæren **`qsw`** er brukerens eneste grensesnitt. Den skal
+
+* håndtere deposit → withdraw → transfer uten metadata-lekkasje;
+* nekte kjøring hvis en OPSEC-regel brytes;
+* autentisere enclaven via remote attestation før nøkkel­generering;
+* holde en WireGuard-lignende kryptert tunnel til mirror-noder via Mixnet/Tor;
+* aldri lagre ukryptert data på disk;
+* tilby air-gap backup / recovery via QR eller ultralyd-chirp.
+
+---
+
+## 1  Mappe­struktur
+
+client/
+├─ Cargo.toml
+├─ cli/ (binary crate `qsw`)
+│  ├─ build.rs
+│  └─ src/
+│     ├─ main.rs
+│     ├─ ui.rs
+│     ├─ cmd.rs
+│     ├─ ops/
+│     │   ├─ deposit.rs
+│     │   ├─ transfer.rs
+│     │   ├─ withdraw.rs
+│     │   ├─ rotate.rs
+│     │   ├─ sync.rs
+│     │   └─ health.rs
+│     ├─ net/
+│     │   ├─ tor.rs
+│     │   ├─ mixnet.rs
+│     │   ├─ wg_noise.rs
+│     │   └─ fallback_i2p.rs
+│     ├─ enclave/
+│     │   ├─ keystore.rs
+│     │   ├─ attest.rs
+│     │   └─ ipc.rs
+│     ├─ zk/
+│     │   ├─ prove.rs
+│     │   └─ aggregate.rs
+│     ├─ opsec/
+│     │   ├─ checks.rs
+│     │   └─ jitter.rs
+│     └─ airgap/
+│         ├─ qr_encode.rs
+│         └─ ultrasonic.rs
+├─ enclave/
+│  ├─ sgx/
+│  │   ├─ Enclave.edl
+│  │   └─ src/lib.rs
+│  ├─ sev-snp/
+│  │   └─ src/lib.rs
+│  └─ arm-cca/
+│     └─ src/lib.rs
+└─ tests/
+   ├─ opsec_block.rs
+   ├─ enclave_attest.rs
+   └─ e2e_flow.rs
+
+## 2  Cargo.toml (utdrag)
+
+[package]
+name = "qsw"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap            = { version = "5.1", features = ["derive"] }
+ratatui         = "0.26"
+tokio           = { version = "1.40", features = ["full"] }
+sphinx-mixnet   = "0.9"
+tor-process     = "0.19"
+wireguard-noise = "0.7"
+pq              = { path = "../pq" }
+circuits-halo2  = { path = "../../circuits/halo2" }
+serde           = { version = "1", features = ["derive"] }
+serde_json      = "1"
+hex             = "0.4"
+qrcode          = "0.15"
+ultrasonic-codec = "0.6"
+chrono          = { version = "0.4", default-features = false, features = ["clock"] }
+zeroize         = "1"
+anyhow          = "1"
+
+## 3  OPSEC-gates
+
+| Gate-ID | Sjekk                     | Blokker hvis   |
+| ------- | ------------------------- | -------------- |
+| NET-001 | Mixnet + Tor oppe?        | En av dem nede |
+| SET-002 | Anonymitetssett ≥128 ekte | Nei            |
+| TEE-003 | Enclave-attestation OK    | Feiler         |
+| SYS-004 | Root/debugfs aktiv?       | Ja             |
+| CLK-005 | Tidsskjev > ±2 s          | Ja             |
+| KEY-006 | PQ-nøkkel eldre enn 90 d  | Ja             |
+
+---
+
+## 4  Sub-kommandoer
+
+| Kommando                        | Beskrivelse                                     | Flags      |
+| ------------------------------- | ----------------------------------------------- | ---------- |
+| `qsw doctor`                    | Kjør alle OPSEC-tester                          | `--json`   |
+| `qsw deposit AMOUNT`            | Splitter til 0,01 BNB-noter, kaller `deposit()` | `--memo`   |
+| `qsw transfer NOTEID --to PK`   | Intern overføring                               |            |
+| `qsw withdraw NOTEID --to ADDR` | Batch-uttak (≥16/80)                            |            |
+| `qsw rotate`                    | Tving nøkkel-rotasjon                           |            |
+| `qsw sync`                      | Henter Merkle-rot, batch-status                 |            |
+| `qsw backup`                    | QR/ultralyd Shamir-backup                       | `--shares` |
+| `qsw restore`                   | Leser backup                                    |            |
+| `qsw tui`                       | Starter fullskjerms TUI                         |            |
+
+---
+
+## 5  Nettverks-stack
+
+WireGuard-Noise tunnel → Sphinx-Mixnet (6 hopp) → Tor/I2P/HORNET → mirror-RPC → opBNB.
+
+Dummy-pakker sendes hvert 2 ± 0,5 s for mønster­skjuling.
+
+---
+
+## 6  Enclave & attestation
+
+### Flyt
+
+1. `qsw doctor` ⇒ `attest::request_quote()`
+2. Quote sendes til attestation-relay (`--attest-url`).
+3. Verifiser SGX EPID / SEV-SNP cert / Arm CCA RMM.
+4. Hash(root\_key) lagres i RAM-keystore.
+
+### SGX-build
+
+cd client/enclave/sgx && make SGX_MODE=HW SGX_DEBUG=0
+cargo build --target x86_64-fortanix-unknown-sgx --release
+
+---
+
+## 7  Air-gap backup / recovery
+
+*Backup*
+`qsw backup --shares 5/3` → genererer QR-frames + ultralyd-chirp (21 kHz).
+
+*Restore*
+`qsw restore` → kamera/mikrofon til minst 3 deler mottatt, rekonstruerer nøkkel.
+
+---
+
+## 8  TUI-taster
+
+D = Deposit • W = Withdraw • T = Transfer • S = Sync • R = Rotate
+Esc = Lukk modal • Q = Quit (FPS ≤ 30 Hz)
+
+---
+
+## 9  Eksempel-workflow
+
+qsw doctor
+qsw deposit 0.25 --memo "rent"
+qsw transfer NOTE-123 --to pk1qsk…xyz
+qsw withdraw NOTE-789 --to bnb1qy…zzz
+qsw backup
+
+`withdraw` returnerer TX-hash når batch-kravene er oppfylt.
+
+---
+
+## 10  Bygg & bench
+
+cargo build --release
+cargo test --all
+make enclave-sgx          # SGX‐target
+ICICLE=1 cargo test -p circuits-halo2 --features gpu
+cargo bench -p cli --bench ops_bench
+
+SLO: `qsw deposit` ≤ 500 ms CPU; ≤ 120 ms GPU.
+
+---
+
+## 11  CI-hooks
+
+* `opsec_block.rs` forventer feil når porter brytes.
+* Attestation-test conditionally på SGX/SEV/CCA runners.
+* Alle binærer strips + relro/now.
+* Provenance via `cargo auditable`.
+
+---
+
+## 12  “✅ Done when”-sjekkliste
+
+* `cargo test` grønt (x86\_64 & ARM)
+* OPSEC-gates demonstrert
+* Attestation passer på minst én TEE
+* Nettverk-stack-test passer bak Tor-stub
+* TUI FPS ≤ 30 Hz, ingen panics
+* Air-gap backup→restore integration-test grønt
+* Benchmarks innen SLA
+
+---
+
+## 13  Neste steg
+
+1. Kjør `make e2e` mot docker-testnet.
+2. Følg 08\_ci\_cd\_deploy.md for signering & release.
+3. Oppdater 10\_user\_ops\_docs.md med skjermbilder.
+
+---

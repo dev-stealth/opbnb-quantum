@@ -1,0 +1,39 @@
+[package]
+name = "opbnb-quantum"
+version = "0.1.0"
+edition = "2021"
+authors = ["Quantum-Secure Wallet Dev Team"]
+description = "Quantum-secure, ZK-based opBNB wallet with PQC and Halo2/STARK circuits"
+license = "Apache-2.0"
+repository = "https://example.com/opbnb-quantum"
+default-run = "keygen"
+
+[dependencies]
+pqcrypto-traits = "0.3.5"
+pqcrypto-kyber = "0.5"
+pqcrypto-ntru = "0.5"
+pqcrypto-dilithium = "0.5"
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+rand = "0.8"
+
+# ZK (stabil pin via crates.io – ikke git)
+halo2_proofs = "0.3.0"
+
+# Nøkkelkryptering & passordhåndtering
+aes-gcm = "0.10"
+argon2   = "0.5"
+hkdf     = "0.12"
+sha2     = "0.10"
+secrecy  = "0.8"
+zeroize  = "1.7"
+
+rpassword = "7.0"
+dirs = "5.0"
+hex = "0.4.3"
+anyhow = "1.0.98"
+
+[dev-dependencies]
+criterion = "0.5"

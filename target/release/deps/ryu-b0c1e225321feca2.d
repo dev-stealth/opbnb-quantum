@@ -1,0 +1,18 @@
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/release/deps/ryu-b0c1e225321feca2.d: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/buffer/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/common.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_full_table.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_intrinsics.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/digit_table.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s_intrinsics.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/exponent.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mantissa.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/release/deps/libryu-b0c1e225321feca2.rlib: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/buffer/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/common.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_full_table.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_intrinsics.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/digit_table.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s_intrinsics.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/exponent.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mantissa.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/target/release/deps/libryu-b0c1e225321feca2.rmeta: /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/lib.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/buffer/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/common.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_full_table.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_intrinsics.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/digit_table.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s_intrinsics.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mod.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/exponent.rs /home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mantissa.rs
+
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/lib.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/buffer/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/common.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_full_table.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/d2s_intrinsics.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/digit_table.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/f2s_intrinsics.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mod.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/exponent.rs:
+/home/ko/Desktop/prosjektX/opbnb-quantum/vendor/ryu/src/pretty/mantissa.rs:
