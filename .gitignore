@@ -1,4 +1,9 @@
-target/
+/target/
+/vendor/
+/wallets/
+/sig.bin
+*.bin
+*.enc
 **/*.rs.bak
 *.tar.gz
 SHA256SUMS
